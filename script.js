@@ -74,4 +74,4 @@ const updatePage = function() {
 renderDate();
 renderTable();
 $(".saveBtn").on("click", clickHandler);
-setInterval(updatePage, 10000);
+setInterval(updatePage, 60000);
