@@ -63,9 +63,9 @@ const updatePage = function() {
     let currentHour = moment().hour();
     for(let i = 9; i < 18; i++) {
         let blockDesc = $(`#desc${i}`);
-        if (currentHour-7 > i) {
+        if (currentHour > i) {
             blockDesc.attr("class", "col-10 description past");
-        } else if (currentHour-7 === i) {
+        } else if (currentHour === i) {
             blockDesc.attr("class", "col-10 description present");
         } else {
             blockDesc.attr("class", "col-10 description future");
