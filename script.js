@@ -57,6 +57,23 @@ const clickHandler = function(e) {
 }
 
 
+// Checks to see if the date or hour has changed once a minute.
+const updatePage = function() {
+    renderDate();
+    let currentHour = moment().hour();
+    for(let i = 9; i < 18; i++) {
+        let blockDesc = $(`#desc${i}`);
+        if (currentHour-7 > i) {
+            blockDesc.attr("class", "col-10 description past");
+        } else if (currentHour-7 === i) {
+            blockDesc.attr("class", "col-10 description present");
+        } else {
+            blockDesc.attr("class", "col-10 description future");
+        }
+    }
+}
+
 renderDate();
 renderTable();
 $(".saveBtn").on("click", clickHandler);
+setInterval(updatePage, 10000);
