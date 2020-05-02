@@ -12,10 +12,10 @@ let schedule = {
     17: "",
 }
 let tempStr = localStorage.getItem("schedule");
-if(tempStr != undefined) {
+if (tempStr != undefined) {
     schedule = JSON.parse(tempStr);
 }
-const renderDate = function() {
+const renderDate = function () {
     let date = moment().format("dddd, MMMM Do");
     $("#currentDay").text(date);
 }
@@ -47,7 +47,7 @@ const renderTable = function () {
     }
 }
 
-const clickHandler = function(e) {
+const clickHandler = function (e) {
     e.preventDefault();
     let time = this.dataset.time;
     schedule[time] = $(`#desc${time}`).val();
@@ -55,18 +55,21 @@ const clickHandler = function(e) {
 }
 
 
-// Checks to see if the date or hour has changed once a minute.
-const updatePage = function() {
-    renderDate();
-    let currentHour = moment().hour();
-    for(let i = 9; i < 18; i++) {
-        let blockDesc = $(`#desc${i}`);
-        if (currentHour > i) {
-            blockDesc.attr("class", "col-10 description past");
-        } else if (currentHour === i) {
-            blockDesc.attr("class", "col-10 description present");
-        } else {
-            blockDesc.attr("class", "col-10 description future");
+// Checks to see if the date or hour has changed once every 15 seconds.
+const updatePage = function () {
+    let newHour = moment().hour();
+    if (newHour != currentHour) {
+        renderDate();
+        currentHour = newHour;
+        for (let i = 9; i < 18; i++) {
+            let blockDesc = $(`#desc${i}`);
+            if (currentHour > i) {
+                blockDesc.attr("class", "col-10 description past");
+            } else if (currentHour === i) {
+                blockDesc.attr("class", "col-10 description present");
+            } else {
+                blockDesc.attr("class", "col-10 description future");
+            }
         }
     }
 }
@@ -74,4 +77,4 @@ const updatePage = function() {
 renderDate();
 renderTable();
 $(".saveBtn").on("click", clickHandler);
-setInterval(updatePage, 60000);
+setInterval(updatePage, 15000);
