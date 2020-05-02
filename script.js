@@ -12,7 +12,6 @@ let schedule = {
     17: "",
 }
 let tempStr = localStorage.getItem("schedule");
-console.log(tempStr);
 if(tempStr != undefined) {
     schedule = JSON.parse(tempStr);
 }
@@ -52,7 +51,6 @@ const clickHandler = function(e) {
     e.preventDefault();
     let time = this.dataset.time;
     schedule[time] = $(`#desc${time}`).val();
-    console.log(schedule[time]);
     localStorage.setItem("schedule", JSON.stringify(schedule));
 }
 
